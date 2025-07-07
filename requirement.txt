@@ -1,5 +1,5 @@
 streamlit
-beautifulsoup4==4.12.3
+BeautifulSoup4
 requests
 sentence-transformers
 qdrant-client
