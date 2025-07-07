@@ -1,5 +1,5 @@
 streamlit
-BeautifulSoup
+bs4
 requests
 sentence-transformers
 qdrant-client
