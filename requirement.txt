@@ -2,6 +2,7 @@ streamlit
 beautifulsoup4
 requests
 sentence-transformers
-transformers
 qdrant-client
+transformers
 torch
+sentencepiece
