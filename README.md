@@ -24,6 +24,8 @@ A Streamlit app that:
 | `sentencepiece`        | Tokenizer support                        |
 
 ---
+See how thing work from the below Link
+https://colab.research.google.com/drive/1b6qD6Ld_182Ilmf6rS0S9DN1rb0K2EjE?usp=drive_link
 
 ## 🚀 How to Run the App Locally
 
@@ -34,4 +36,6 @@ If you have a `requirements.txt` file: (download from Above)
 ```bash
 pip install -r requirements.txt
 streamlit run app_v.py
+
+
 
