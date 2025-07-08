@@ -49,6 +49,11 @@ def setup_qdrant(client, embeddings, articles):
             collection_name=collection_name,
             vectors_config=VectorParams(size=768, distance=Distance.COSINE)
         )
+    else :
+        client.recreate_collection(
+            collection_name = collection_name,
+            vectors_config = VectorParams(size=768 , distance=Distance.COSINE)
+        )
 
     points = [
         PointStruct(id=i, vector=embeddings[i], payload=articles[i])
@@ -65,11 +70,11 @@ def load_models():
     return embed_model, summarizer
 
 # === STREAMLIT UI ===
-st.title("🧠 Smart News Summarizer (BBC + Qdrant + BART)")
+st.title("🇧 🇧 🇨 Smart News Summarizer")
 
 embed_model, summarizer = load_models()
 
-st.sidebar.header("🔍 Search News")
+st.sidebar.header("Search News")
 query = st.sidebar.text_input("Enter your query", "Gaza ceasefire updates")
 if st.sidebar.button("Search"):
     with st.spinner("Scraping latest news..."):
@@ -91,7 +96,7 @@ if st.sidebar.button("Search"):
         limit=3
     )
 
-    st.subheader("🔎 Top Matching Articles")
+    st.subheader("Top Matching Articles")
     context = ""
     for i, hit in enumerate(search_result):
         article = hit.payload
