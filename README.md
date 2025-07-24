@@ -1,41 +1,48 @@
-# 📰 BBC News Summarizer with Vector Search
+# 📰 BBC News Summarizer with Semantic Search 
 
-A Streamlit app that:
-- Scrapes BBC News via RSS
-- Extracts full article content
-- Generates embeddings using SentenceTransformer (MPNet)
-- Stores them in Qdrant vector database
-- Performs semantic search based on a user query
+An intelligent news summarization app that:
+- Scrapes latest BBC News via RSS
+- Extracts full article content using BeautifulSoup
+- Generates semantic embeddings using `all-mpnet-base-v2`
+- Stores them in a Qdrant vector database
+- Performs **semantic search** on user queries
 - Summarizes top results using `facebook/bart-large-cnn`
+- Built with **FastAPI** and Jinja2 templating
 
 ---
 
-## 🔧 Tech Stack
+## 🧠 How It Works
 
-| Tool / Library         | Purpose                                 |
-|------------------------|------------------------------------------|
-| `streamlit`            | UI framework                             |
-| `beautifulsoup4`       | HTML parsing (web scraping)              |
-| `requests`             | Sending HTTP requests                    |
-| `sentence-transformers`| Generating vector embeddings             |
-| `qdrant-client`        | Vector database for similarity search    |
-| `transformers`         | Text summarization using BART model      |
-| `torch`                | PyTorch backend for models               |
-| `sentencepiece`        | Tokenizer support                        |
+1. **User enters a query** (e.g. "Ukraine war update")
+2. The app:
+   - Scrapes BBC news (RSS + article parsing)
+   - Vectorizes all articles with SentenceTransformer
+   - Stores in Qdrant (semantic vector DB)
+   - Encodes user query, searches top-3 similar articles
+   - Combines the text, runs BART summarization
+3. **Output**: A concise news summary + top articles used
 
 ---
-See how thing work from the below Link
-https://colab.research.google.com/drive/1b6qD6Ld_182Ilmf6rS0S9DN1rb0K2EjE?usp=drive_link
 
-## 🚀 How to Run the App Locally
+## ⚙️ Tech Stack
 
-### 1. Install Dependencies
+| Tool / Library            | Purpose                                 |
+|---------------------------|------------------------------------------|
+| `FastAPI`                 | Web backend framework                    |
+| `Jinja2`                  | HTML templating for dynamic rendering    |
+| `beautifulsoup4`          | HTML parsing (web scraping)              |
+| `requests`                | HTTP requests for scraping               |
+| `sentence-transformers`   | Sentence embeddings (`all-mpnet-base-v2`)|
+| `qdrant-client`           | Vector DB for semantic similarity        |
+| `transformers`            | Text summarization (`facebook/bart-large-cnn`) |
+| `torch` / `sentencepiece` | Backend & tokenizer support for models   |
 
-If you have a `requirements.txt` file: (download from Above)
+---
+
+## 🚀 How to Run Locally
+
+### 1. Clone the Repo
 
 ```bash
-pip install -r requirements.txt
-streamlit run app_v.py
-
-
-
+git clone https://github.com/yourusername/bbc-news-summarizer.git
+cd bbc-news-summarizer
