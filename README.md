@@ -35,9 +35,7 @@ An intelligent news summarization app that:
 | `sentence-transformers`   | Sentence embeddings (`all-mpnet-base-v2`)|
 | `qdrant-client`           | Vector DB for semantic similarity        |
 | `transformers`            | Text summarization (`facebook/bart-large-cnn`) |
-| `torch` / `sentencepiece` | Backend & tokenizer support for models   |
 
----
 ---
 See how thing work from the below Link
 https://colab.research.google.com/drive/1b6qD6Ld_182Ilmf6rS0S9DN1rb0K2EjE?usp=drive_link
