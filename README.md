@@ -45,5 +45,5 @@ https://colab.research.google.com/drive/1b6qD6Ld_182Ilmf6rS0S9DN1rb0K2EjE?usp=dr
 ### 1. Clone the Repo
 
 ```bash
-git clone https://github.com/Saketh/bbc-news-summarizer.git
+git clone https://github.com/Saketh2611/bbc-news-summarizer.git
 cd bbc-news-summarizer
