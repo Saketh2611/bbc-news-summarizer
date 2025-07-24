@@ -1,6 +1,8 @@
-streamlit
-BeautifulSoup4
+fastapi
+uvicorn
+jinja2
 requests
+beautifulsoup4
 sentence-transformers
 qdrant-client
 transformers
