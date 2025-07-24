@@ -16,7 +16,7 @@ templates = Jinja2Templates(directory="templates")
 # === Qdrant Config ===
 collection_name = "news_articles"
 qdrant_url = "https://23a37241-1707-4f1a-8f5e-47c00502551d.us-west-1-0.aws.cloud.qdrant.io:6333"
-qdrant_api_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJtIn0.6MHdGWXVS2dEszyAaokzSlQbqe0Fdh_vFEvBJxXH50c"
+qdrant_api_key = "your api key"
 
 client = QdrantClient(url=qdrant_url, api_key=qdrant_api_key)
 
