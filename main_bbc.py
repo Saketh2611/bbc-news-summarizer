@@ -25,7 +25,7 @@ embed_model = SentenceTransformer("all-mpnet-base-v2")
 summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
 
 # === Helper Functions ===
-def scrape_bbc_rss(limit=25):
+def scrape_bbc_rss(limit=100):
     url = 'https://feeds.bbci.co.uk/news/rss.xml'
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'xml')
