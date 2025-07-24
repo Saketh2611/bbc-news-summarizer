@@ -38,11 +38,14 @@ An intelligent news summarization app that:
 | `torch` / `sentencepiece` | Backend & tokenizer support for models   |
 
 ---
+---
+See how thing work from the below Link
+https://colab.research.google.com/drive/1b6qD6Ld_182Ilmf6rS0S9DN1rb0K2EjE?usp=drive_link
 
 ## 🚀 How to Run Locally
 
 ### 1. Clone the Repo
 
 ```bash
-git clone https://github.com/yourusername/bbc-news-summarizer.git
+git clone https://github.com/Saketh/bbc-news-summarizer.git
 cd bbc-news-summarizer
