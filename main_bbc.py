@@ -24,42 +24,8 @@ client = QdrantClient(url=qdrant_url, api_key=qdrant_api_key)
 embed_model = SentenceTransformer("all-mpnet-base-v2")
 summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
 
-
-# === Routes ===
-@app.get("/", response_class=HTMLResponse)
-async def homepage(request: Request):
-    return templates.TemplateResponse("BBC.html", {"request": request})
-
-
-@app.post("/summarize", response_class=HTMLResponse)
-async def summarize_news(request: Request, query: str = Form(...)):
-    articles = scrape_bbc_rss()
-    embeddings = [embed_model.encode(f"{a['title']}. {a['text']}", normalize_embeddings=True) for a in articles]
-
-    setup_qdrant(client, embeddings, articles)
-    query_vector = embed_model.encode(query, normalize_embeddings=True)
-
-    hits = client.search(collection_name=collection_name, query_vector=query_vector, limit=3)
-
-    top_articles = [hit.payload for hit in hits]
-    context = "\n\n".join([a["text"] for a in top_articles])
-
-    # Truncate context if too long
-    if len(context.split()) > 1000:
-        context = " ".join(context.split()[:1000])
-
-    summary = summarizer(context, max_length=250, min_length=80, do_sample=False)[0]["summary_text"]
-
-    return templates.TemplateResponse("BBC.html", {
-        "request": request,
-        "query": query,
-        "articles": top_articles,
-        "summary": summary
-    })
-
-
 # === Helper Functions ===
-def scrape_bbc_rss(limit=10):
+def scrape_bbc_rss(limit=25):
     url = 'https://feeds.bbci.co.uk/news/rss.xml'
     response = requests.get(url)
     soup = BeautifulSoup(response.content, 'xml')
@@ -104,3 +70,39 @@ def setup_qdrant(client, embeddings, articles):
         for i in range(len(articles))
     ]
     client.upsert(collection_name=collection_name, points=points)
+
+
+# === Routes ===
+@app.get("/", response_class=HTMLResponse)
+async def homepage(request: Request):
+    return templates.TemplateResponse("BBC.html", {"request": request})
+
+
+@app.post("/summarize", response_class=HTMLResponse)
+async def summarize_news(request: Request, query: str = Form(...)):
+    articles = scrape_bbc_rss()
+    embeddings = [embed_model.encode(f"{a['title']}. {a['text']}", normalize_embeddings=True) for a in articles]
+
+    setup_qdrant(client, embeddings, articles)
+    query_vector = embed_model.encode(query, normalize_embeddings=True)
+
+    hits = client.search(collection_name=collection_name, query_vector=query_vector, limit=3)
+
+    top_articles = [hit.payload for hit in hits]
+    context = "\n\n".join([a["text"] for a in top_articles])
+
+    # Truncate context if too long
+    if len(context.split()) > 1000:
+        context = " ".join(context.split()[:1000])
+
+    summary = summarizer(context, max_length=250, min_length=80, do_sample=False)[0]["summary_text"]
+
+    return templates.TemplateResponse("BBC.html", {
+        "request": request,
+        "query": query,
+        "articles": top_articles,
+        "summary": summary
+    })
+
+
+
