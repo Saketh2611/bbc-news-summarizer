@@ -14,9 +14,9 @@ app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
 # === Qdrant Config ===
-collection_name = "news_articles"
+collection_name = "news_articles_1"
 qdrant_url = "https://23a37241-1707-4f1a-8f5e-47c00502551d.us-west-1-0.aws.cloud.qdrant.io:6333"
-qdrant_api_key = "your api key"
+qdrant_api_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJtIn0.6MHdGWXVS2dEszyAaokzSlQbqe0Fdh_vFEvBJxXH50c"
 
 client = QdrantClient(url=qdrant_url, api_key=qdrant_api_key)
 
@@ -95,7 +95,9 @@ async def summarize_news(request: Request, query: str = Form(...)):
     if len(context.split()) > 1000:
         context = " ".join(context.split()[:1000])
 
-    summary = summarizer(context, max_length=250, min_length=80, do_sample=False)[0]["summary_text"]
+    prompt = f"Answer the following question based on the news articles:\n\nQuestion: {query}\n\nArticles:\n{context}"
+    summary = summarizer(prompt, max_length=250, min_length=80, do_sample=False)[0]["summary_text"]
+
 
     return templates.TemplateResponse("BBC.html", {
         "request": request,
