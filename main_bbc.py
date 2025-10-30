@@ -9,14 +9,16 @@ from sentence_transformers import SentenceTransformer
 from transformers import pipeline
 from qdrant_client import QdrantClient
 from qdrant_client.models import VectorParams, Distance, PointStruct
+import os
 
 app = FastAPI()
 templates = Jinja2Templates(directory="templates")
 
 # === Qdrant Config ===
+load_dotenv()
 collection_name = "news_articles_1"
-qdrant_url = "https://23a37241-1707-4f1a-8f5e-47c00502551d.us-west-1-0.aws.cloud.qdrant.io:6333"
-qdrant_api_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhY2Nlc3MiOiJtIn0.6MHdGWXVS2dEszyAaokzSlQbqe0Fdh_vFEvBJxXH50c"
+qdrant_url = os.getenv("QDRANT_URL")
+qdrant_api_key = os.getenv("QDRANT_API")
 
 client = QdrantClient(url=qdrant_url, api_key=qdrant_api_key)
 
