@@ -8,3 +8,4 @@ qdrant-client
 transformers
 torch
 sentencepiece
+python-dotenv
