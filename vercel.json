@@ -1,0 +1,14 @@
+{
+  "builds": [
+    {
+      "src": "main_bbc.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "main_bbc.py"
+    }
+  ]
+}
